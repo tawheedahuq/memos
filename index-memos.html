@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Investment Memos — Tawheeda Huq</title>
+<meta name="description" content="Dated investment memos: thesis, catalysts, and what would make me wrong." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --night: #f7f2e7;
+    --panel: #fdfaf3;
+    --panel-2: #efe7d4;
+    --ink: #2b2026;
+    --ink-dim: rgba(43, 32, 38, 0.68);
+    --ink-dimmer: rgba(43, 32, 38, 0.46);
+    --line: rgba(43, 32, 38, 0.16);
+    --ember: #8e3b42;
+    --amber: #9a7118;
+    --mint: #2e7d54;
+    --coral: #b8433a;
+    --peri: #4a5f85;
+
+    --disp: 'Fraunces', Georgia, serif;
+    --sans: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --maxw: 760px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  body {
+    font-family: var(--sans);
+    background: var(--night);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+  /* HEADER */
+  header { padding: 56px 0 30px; border-bottom: 1px solid var(--line); }
+  .back {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 26px;
+  }
+  .back:hover { color: var(--ember); }
+  .head-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ember);
+    flex: none;
+  }
+  h1 {
+    font-family: var(--disp);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 5vw, 2.7rem);
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+  .intro {
+    margin-top: 18px;
+    font-size: 16.5px;
+    color: var(--ink-dim);
+    max-width: 56ch;
+  }
+  .disclaimer {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-dimmer);
+    max-width: 70ch;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 18px 0;
+  }
+  .filter-btn {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+  .filter-btn:hover { border-color: var(--ink-dim); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--night); }
+  .filter-btn:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+  .count {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-dimmer);
+    align-self: center;
+    margin-left: auto;
+  }
+
+  /* MEMO CARDS */
+  main { padding-bottom: 40px; }
+  .memo {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 30px 34px;
+    margin-bottom: 26px;
+    box-shadow: 0 1px 2px rgba(43, 32, 38, 0.05), 0 8px 24px rgba(43, 32, 38, 0.05);
+  }
+  .stamp {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 3px double currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: rotate(-9deg);
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .memo-top { padding-right: 96px; }
+  .memo-num {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ember);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .memo-num a { color: inherit; text-decoration: none; }
+  .memo-num a:hover { text-decoration: underline; }
+  .memo-ticker {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    margin-top: 10px;
+  }
+  .memo-company {
+    font-family: var(--disp);
+    font-weight: 500;
+    font-size: 26px;
+    margin-top: 3px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .memo-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 12px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .memo-meta b { color: var(--ink); font-weight: 600; }
+  .section { margin-top: 22px; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-dimmer);
+    margin-bottom: 7px;
+  }
+  .section-body {
+    font-size: 16.5px;
+    line-height: 1.78;
+    white-space: pre-wrap;
+  }
+  .empty {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 26px 0 48px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-dimmer);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ember); }
+
+  @media (max-width: 560px) {
+    .memo { padding: 22px 18px; }
+    .stamp { width: 64px; height: 64px; font-size: 11px; top: 15px; right: 15px; }
+    .memo-top { padding-right: 70px; }
+    .memo-company { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="back" href="https://tawheedahuq.github.io">&larr; tawheedahuq.github.io</a>
+      <div class="head-row">
+        <span class="eyebrow">Reel &mdash; Memos</span>
+        <h1>Investment Memos</h1>
+      </div>
+      <p class="intro">Dated, unedited-after-the-fact notes on companies I&rsquo;m studying: the thesis, the catalysts, and what would make me wrong.</p>
+      <p class="disclaimer">These are personal research notes and a thinking journal, not investment advice or a recommendation to buy or sell any security. I may hold positions in companies discussed. Do your own work.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="filters" id="filters" role="group" aria-label="Filter memos by call">
+      <button class="filter-btn active" data-call="ALL">All</button>
+      <button class="filter-btn" data-call="BUY">Buy</button>
+      <button class="filter-btn" data-call="HOLD">Hold</button>
+      <button class="filter-btn" data-call="SELL">Sell</button>
+      <button class="filter-btn" data-call="WATCH">Watch</button>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <main>
+    <div class="wrap" id="memo-list"></div>
+  </main>
+
+  <footer>
+    <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <span>&copy; <span id="year"></span> Tawheeda Huq</span>
+      <a href="https://tawheedahuq.github.io">Home</a>
+    </div>
+  </footer>
+
+<script src="memos.js"></script>
+<script>
+(function () {
+  var CALL_META = {
+    BUY:   { color: "var(--mint)",  label: "BUY" },
+    HOLD:  { color: "var(--amber)", label: "HOLD" },
+    SELL:  { color: "var(--coral)", label: "SELL" },
+    WATCH: { color: "var(--peri)",  label: "WATCH" }
+  };
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  var memos = (typeof MEMOS !== "undefined" && Array.isArray(MEMOS)) ? MEMOS.slice() : [];
+
+  // Stable numbering: oldest memo = 001
+  var byDateAsc = memos.slice().sort(function (a, b) {
+    return String(a.date || "").localeCompare(String(b.date || ""));
+  });
+  byDateAsc.forEach(function (m, i) {
+    m._num = String(i + 1).padStart(3, "0");
+  });
+
+  // Display newest first
+  memos.sort(function (a, b) {
+    return String(b.date || "").localeCompare(String(a.date || ""));
+  });
+
+  function formatDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso + "T00:00:00");
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function section(label, body) {
+    var s = el("div", "section");
+    s.appendChild(el("div", "section-label", label));
+    s.appendChild(el("div", "section-body", body));
+    return s;
+  }
+
+  function render(filter) {
+    var list = document.getElementById("memo-list");
+    list.innerHTML = "";
+    var shown = 0;
+
+    memos.forEach(function (m) {
+      if (filter !== "ALL" && m.call !== filter) return;
+      shown++;
+
+      var card = el("article", "memo");
+      card.id = "memo-" + m._num;
+
+      var meta = CALL_META[m.call] || { color: "var(--ink-dim)", label: m.call || "—" };
+      var stamp = el("div", "stamp", meta.label);
+      stamp.style.color = meta.color;
+      card.appendChild(stamp);
+
+      var top = el("div", "memo-top");
+      var num = el("div", "memo-num");
+      var numLink = document.createElement("a");
+      numLink.href = "#memo-" + m._num;
+      numLink.textContent = "Memo " + m._num;
+      num.appendChild(numLink);
+      top.appendChild(num);
+      top.appendChild(el("div", "memo-ticker", m.ticker || ""));
+      top.appendChild(el("div", "memo-company", m.company || ""));
+      card.appendChild(top);
+
+      var metaRow = el("div", "memo-meta");
+      var dateSpan = el("span");
+      var dateB = el("b", null, formatDate(m.date));
+      dateSpan.appendChild(dateB);
+      metaRow.appendChild(dateSpan);
+      if (m.conviction) {
+        var conv = el("span", null, "Conviction: ");
+        conv.appendChild(el("b", null, m.conviction));
+        metaRow.appendChild(conv);
+      }
+      if (m.priceTarget) {
+        var tgt = el("span", null, "Target: ");
+        tgt.appendChild(el("b", null, m.priceTarget));
+        metaRow.appendChild(tgt);
+      }
+      card.appendChild(metaRow);
+
+      if (m.thesis) card.appendChild(section("Thesis", m.thesis));
+      if (m.catalysts) card.appendChild(section("Catalysts", m.catalysts));
+      if (m.risks) card.appendChild(section("Key risks", m.risks));
+      if (m.notes) card.appendChild(section("Notes", m.notes));
+
+      list.appendChild(card);
+    });
+
+    if (shown === 0) {
+      list.appendChild(el("div", "empty",
+        memos.length === 0
+          ? "No memos published yet."
+          : "No memos with this call yet."));
+    }
+    document.getElementById("count").textContent =
+      shown + " memo" + (shown === 1 ? "" : "s");
+  }
+
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var btn = e.target.closest(".filter-btn");
+    if (!btn) return;
+    document.querySelectorAll(".filter-btn").forEach(function (b) {
+      b.classList.remove("active");
+    });
+    btn.classList.add("active");
+    render(btn.dataset.call);
+  });
+
+  render("ALL");
+})();
+</script>
+</body>
+</html>
