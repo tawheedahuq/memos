@@ -55,7 +55,7 @@ The financial picture is a genuine recovery story sitting inside that same tensi
   type: "memo",
   ticker: "HOOD",
   company: "Robinhood Markets, Inc.",
-  date: "2026-07-17",
+  date: "2026-08-01",
   call: "WATCH",
   conviction: "Low — one metric, not a thesis",
   priceTarget: "",
